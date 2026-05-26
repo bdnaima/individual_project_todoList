@@ -13,3 +13,6 @@ project.nuget.cache
 # Ignore other temporary files
 *.log
 *.tmp
+
+# Ignore example.txt
+*example.txt

@@ -5,7 +5,7 @@ class TodoTask {
     public string  Project {get; set;}
     public DateTime DueDate {get; set;}
 
-    public TaskStatus Satus {get; set;}
+    public TaskStatus Status {get; set;}
 
     public TodoTask (string title, string project, DateTime dueDate, TaskStatus status) {
         Title = title;
@@ -15,7 +15,7 @@ class TodoTask {
     }
 
     public override string ToString () {
-        return $"{Title.PadRight(10)} {Project.PadRight(10)} {DueDate.ToString("yyyy-MM-dd").PadRight(10)} {Satus}";
+        return $"{Title.PadRight(20)} {Project.PadRight(20)} {DueDate.ToString("yyyy-MM-dd").PadRight(20)} {Status}";
     }
 }
 

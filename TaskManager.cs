@@ -1,35 +1,43 @@
 
 class TaskManager {
     List<TodoTask> todoItems = new List<TodoTask>();
+     DateTime dueDate;
     public void AddTask() {
 
         while(true) {
             Console.WriteLine("Enter task title:"); 
-            string userInputTitle = Console.ReadLine() ?? "";
+            string? userInputTitle = Console.ReadLine();
 
-            if (userInputTitle.ToLower().Trim() == "q") {
-                break;
-            }
+            if (userInputTitle == null) break;
+            if (userInputTitle.ToLower().Trim() == "q") break;
 
             Console.WriteLine("Enter project:");
-            string userInputProject = Console.ReadLine() ?? "";
+            string? userInputProject = Console.ReadLine();
 
-            if (userInputProject.ToLower().Trim() == "q") {
-                break;
-            }
+            if (userInputProject == null) break;
+            if (userInputProject.ToLower().Trim() == "q") break;
 
             Console.WriteLine("Enter date:");
-            string userInputDate = Console.ReadLine() ?? "";
-            
-            DateTime dueDate = DateTime.Parse(userInputDate);
-            
-            if(userInputDate.ToLower().Trim() == "q") {
-                break;
-            }
+            string? userInputDate = Console.ReadLine();
 
-            TodoTask todoList = new TodoTask(userInputTitle, userInputProject, dueDate);
-            todoItems.Add(todoList);
-            Console.WriteLine("Task added successfully!");
+            if (userInputDate == null) break;
+            if (userInputDate.ToLower().Trim() == "q") break;
+
+            bool success = DateTime.TryParse(userInputDate, out dueDate);
+
+            if (success) {
+                 TodoTask task = new TodoTask(
+                    userInputTitle, 
+                    userInputProject,
+                    dueDate,
+                    TaskStatus.NotDone
+                );
+                
+                todoItems.Add(task);
+                Console.WriteLine("Task added successfully!");
+            } else {
+                Console.WriteLine("Invalid date format. Should in this form: 2026-05-30");
+            }
         }
     }
 
