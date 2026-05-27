@@ -1,5 +1,6 @@
 ﻿
 TaskManager taskManager = new TaskManager();
+taskManager.LoadFile();
 
 void PrintOption (string option, string label) {
     Console.Write("(");
@@ -35,7 +36,8 @@ while (true) {
         taskManager.MarkAsDone();
     } 
     else if(choice == "4") {
-         break;
+       taskManager.SaveToFile();
+       break;
     }
     else {
         Console.WriteLine("Wrong choice!");

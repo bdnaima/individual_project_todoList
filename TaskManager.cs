@@ -1,6 +1,6 @@
-
+using System.Text.Json;
 class TaskManager {
-    List<TodoTask> tasks = new List<TodoTask>();
+   List<TodoTask> tasks = new List<TodoTask>();
     public void AddTask() {
 
         Console.WriteLine("Enter task title:"); 
@@ -61,6 +61,33 @@ class TaskManager {
         }
     }
     // void EditTask();
-    // void Remove();
+    public void RemoveTask() {
+        TodoTask? taskToRemove = null;
+        int id;
+        Console.Write("Task ID: ");
+        string userInput = Console.ReadLine() ?? "";
+        if(int.TryParse(userInput, out id)) {
 
+            foreach(TodoTask task in tasks) {
+                if(id == task.Id) {
+                    taskToRemove = task;
+                }
+            }
+
+            if (taskToRemove != null) {
+                tasks.Remove(taskToRemove);
+            }
+        }
+    }
+
+    public void SaveToFile() {
+
+        string jsonString = JsonSerializer.Serialize(tasks);
+        File.WriteAllText("tasks.json", jsonString);
+    }
+
+    public void LoadFile() {
+        string jsonString = File.ReadAllText("tasks.json");
+        tasks = JsonSerializer.Deserialize <List<TodoTask>>(jsonString);
+    }
 }
