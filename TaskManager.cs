@@ -1,58 +1,66 @@
 
 class TaskManager {
-    List<TodoTask> todoItems = new List<TodoTask>();
-     DateTime dueDate;
+    List<TodoTask> tasks = new List<TodoTask>();
     public void AddTask() {
 
-        while(true) {
-            Console.WriteLine("Enter task title:"); 
-            string? userInputTitle = Console.ReadLine();
+        Console.WriteLine("Enter task title:"); 
+        string userInputTitle = Console.ReadLine() ?? "";
 
-            if (userInputTitle == null) break;
-            if (userInputTitle.ToLower().Trim() == "q") break;
+        Console.WriteLine("Enter project:");
+        string userInputProject = Console.ReadLine() ?? "";
+        
+        Console.WriteLine("Enter date:");
+        string? userInputDate = Console.ReadLine();
 
-            Console.WriteLine("Enter project:");
-            string? userInputProject = Console.ReadLine();
+        DateTime dueDate;
+        bool success = DateTime.TryParse(userInputDate, out dueDate);
 
-            if (userInputProject == null) break;
-            if (userInputProject.ToLower().Trim() == "q") break;
+        if (userInputDate == "") { // If user didn't type anything, set todays date
+            success = true;
+            dueDate = DateTime.Now;
+        }
 
-            Console.WriteLine("Enter date:");
-            string? userInputDate = Console.ReadLine();
+        if (success) {
+                TodoTask task = new TodoTask(
+                userInputTitle, 
+                userInputProject,
+                dueDate,
+                TaskStatus.NotDone
+            );
+            
+            tasks.Add(task);
+            Console.WriteLine("Task added successfully!");
+        } else {
+            Console.WriteLine("Invalid date format. Should in this form: 2026-05-30");
+        }
+    }
 
-            if (userInputDate == null) break;
-            if (userInputDate.ToLower().Trim() == "q") break;
 
-            bool success = DateTime.TryParse(userInputDate, out dueDate);
+    public void ShowTasks () {
+        Console.WriteLine(TodoTask.GetHeader());
+        Console.WriteLine(TodoTask.GetDivider());
+        if (tasks.Count == 0) {
+            Console.WriteLine("No tasks");
+        }
 
-            if (success) {
-                 TodoTask task = new TodoTask(
-                    userInputTitle, 
-                    userInputProject,
-                    dueDate,
-                    TaskStatus.NotDone
-                );
-                
-                todoItems.Add(task);
-                Console.WriteLine("Task added successfully!");
-            } else {
-                Console.WriteLine("Invalid date format. Should in this form: 2026-05-30");
+        foreach(TodoTask task in tasks) {
+            Console.WriteLine(task);
+        }
+    }
+
+    public void MarkAsDone() {
+        int id;
+        Console.Write("Task ID: ");
+        string userInput = Console.ReadLine() ?? "";
+        int.TryParse(userInput, out id);
+
+        foreach(TodoTask task in tasks) {
+            if(id == task.Id) {
+                task.Status = TaskStatus.Done;
             }
         }
     }
-
-    public void ShowTasks () {
-       
-        foreach(TodoTask item in todoItems) {
-            
-            Console.WriteLine(item);
-        }
-    }
-
-
-    // void MarkAsDone();
     // void EditTask();
     // void Remove();
-
 
 }
