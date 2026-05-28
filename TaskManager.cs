@@ -1,6 +1,7 @@
 using System.Text.Json;
 class TaskManager {
    List<TodoTask> tasks = new List<TodoTask>();
+
     public void AddTask() {
 
         Console.WriteLine("Enter task title:"); 
@@ -80,6 +81,22 @@ class TaskManager {
         }
     }
 
+    public void ShowSortedByDate() {
+        var sortedList = tasks.OrderBy(task => task.DueDate).ToList();
+
+        foreach (TodoTask task in sortedList) {
+            Console.WriteLine(task);
+        }
+    }
+
+    public void ShowSortedByProject() {
+        var sortedList = tasks.OrderBy(task => task.Project).ToList();
+
+        foreach (TodoTask task in sortedList) {
+            Console.WriteLine(task);
+        }
+    }
+
     public void SaveToFile() {
         string jsonString = JsonSerializer.Serialize(tasks);
         File.WriteAllText("tasks.json", jsonString);
@@ -111,5 +128,6 @@ class TaskManager {
         }
         return notDoneCounter;
     }
+    
     
 }

@@ -54,6 +54,15 @@ while (true) {
     if (choice == "1") {
         Console.Clear();
         taskManager.ShowTasks();
+
+        Console.WriteLine("Sort tasks by Date or Project? (type: Date / Project / leave empty)");
+        string sortingChoice = Console.ReadLine()?.Trim() ?? "";
+
+        if (sortingChoice == "Date") {
+            taskManager.ShowSortedByDate();
+        } else if (sortingChoice == "Project") {
+            taskManager.ShowSortedByProject();
+        }
     }
     else if (choice == "2") {
         Console.Clear();
@@ -75,3 +84,4 @@ while (true) {
     Console.ReadKey();
     Console.Clear();
 }
+
