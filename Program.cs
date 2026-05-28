@@ -2,7 +2,8 @@
 TaskManager taskManager = new TaskManager();
 taskManager.LoadFile();
 
-void PrintOption (string option, string label) {
+void PrintOption(string option, string label)
+{
     Console.Write("(");
     Console.ForegroundColor = ConsoleColor.DarkMagenta;
     Console.Write(option);
@@ -11,7 +12,9 @@ void PrintOption (string option, string label) {
     Console.WriteLine(label);
 }
 
-while (true) {
+while (true)
+{
+    Console.Clear();
     Console.Write("Welcome to ToDo");
     Console.ForegroundColor = ConsoleColor.DarkMagenta;
     Console.WriteLine("LY");
@@ -19,63 +22,110 @@ while (true) {
 
     int doneCount = taskManager.CountDone();
     int notDoneCount = taskManager.CountNotDone();
-    
+
     string todoText = "";
     string doneText = "";
-    string doneVerb = "";
 
-    if (notDoneCount == 1) {
+    if (notDoneCount == 1)
+    {
         todoText = "task";
-    } else {
+    }
+    else
+    {
         todoText = "tasks";
     }
-     if (doneCount == 1) {
+    if (doneCount == 1)
+    {
         doneText = "task is";
-    } else {
+    }
+    else
+    {
         doneText = "tasks are";
     }
 
-
-    Console.WriteLine($"You have {taskManager.CountNotDone()} {todoText} todo and {taskManager.CountDone()} {doneText} done!");
+    Console.WriteLine($"You have {notDoneCount} {todoText} todo and {doneCount} {doneText} done!");
     Console.WriteLine();
 
     Console.WriteLine("Pick an option: ");
     Console.WriteLine();
     PrintOption("1", "Show tasks");
-    Console.WriteLine();
     PrintOption("2", "Add task");
-    Console.WriteLine();
-    PrintOption("3", "Edit task");
-    Console.WriteLine();
+    PrintOption("3", "Manage task");
     PrintOption("4", "Save and quit");
 
     string? choice = Console.ReadLine()?.Trim();
 
-    if (choice == "1") {
+    if (choice == "1")
+    {
         Console.Clear();
-        taskManager.ShowTasks();
 
-        Console.WriteLine("Sort tasks by Date or Project? (type: Date / Project / leave empty)");
-        string sortingChoice = Console.ReadLine()?.Trim() ?? "";
+        Console.WriteLine("How would you like to sort tasks?");
+        Console.WriteLine("1. By Date");
+        Console.WriteLine("2. By Project");
+        Console.WriteLine("3. No sorting");
 
-        if (sortingChoice == "Date") {
+        string? sortChoice = Console.ReadLine()?.Trim();
+
+        Console.Clear();
+
+        if (sortChoice == "1")
+        {
             taskManager.ShowSortedByDate();
-        } else if (sortingChoice == "Project") {
+        }
+        else if (sortChoice == "2")
+        {
             taskManager.ShowSortedByProject();
         }
+        else
+        {
+            taskManager.ShowTasks();
+        }
     }
-    else if (choice == "2") {
+    else if (choice == "2")
+    {
         Console.Clear();
         taskManager.AddTask();
     }
-    else if (choice == "3") {
-        taskManager.MarkAsDone();
-    } 
-    else if(choice == "4") {
-       taskManager.SaveToFile();
-       break;
+    else if (choice == "3")
+    {
+        Console.Clear();
+        taskManager.ShowTasks();
+
+        Console.WriteLine("Manage Task:");
+        Console.WriteLine("1. Edit task");
+        Console.WriteLine("2. Mark as done");
+        Console.WriteLine("3. Remove task");
+
+        string? action = Console.ReadLine()?.Trim();
+
+        if (action == "1")
+        {
+            taskManager.EditTask();
+        }
+        else if (action == "2")
+        {
+            taskManager.MarkAsDone();
+
+        }
+        else if (action == "3")
+        {
+            taskManager.RemoveTask();
+        }
+        else
+        {
+            Console.WriteLine("Invalid option");
+        }
+        Console.Clear();
+        taskManager.ShowTasks();
+
     }
-    else {
+    else if (choice == "4")
+    {
+        taskManager.SaveToFile();
+        break;
+    }
+    else
+    {
         Console.WriteLine("Wrong choice!");
     }
 
