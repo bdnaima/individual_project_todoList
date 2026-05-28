@@ -81,7 +81,6 @@ class TaskManager {
     }
 
     public void SaveToFile() {
-
         string jsonString = JsonSerializer.Serialize(tasks);
         File.WriteAllText("tasks.json", jsonString);
     }
@@ -90,4 +89,27 @@ class TaskManager {
         string jsonString = File.ReadAllText("tasks.json");
         tasks = JsonSerializer.Deserialize <List<TodoTask>>(jsonString);
     }
+
+    public int CountDone () {
+        int doneCounter = 0;
+
+        foreach (TodoTask task in tasks) {
+            if(task.Status == TaskStatus.Done) {
+                doneCounter = doneCounter + 1;
+            } 
+        }
+        return doneCounter;
+    }
+
+    public int CountNotDone () {
+        int notDoneCounter = 0;
+
+        foreach (TodoTask task in tasks) {
+            if(task.Status == TaskStatus.NotDone) {
+                notDoneCounter = notDoneCounter + 1;
+            } 
+        }
+        return notDoneCounter;
+    }
+    
 }

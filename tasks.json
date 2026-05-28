@@ -1,1 +1,1 @@
-[{"Id":100,"Title":"Clean room","Project":"Chores","DueDate":"2026-05-30T00:00:00","Status":1},{"Id":101,"Title":"Study","Project":"Homework","DueDate":"2026-06-10T00:00:00","Status":1}]
+[{"Id":100,"Title":"Clean room","Project":"Chores","DueDate":"2026-05-30T00:00:00","Status":1},{"Id":101,"Title":"Study","Project":"Homework","DueDate":"2026-06-10T00:00:00","Status":0},{"Id":102,"Title":"","Project":"","DueDate":"2026-05-28T10:47:40.556225+02:00","Status":1}]

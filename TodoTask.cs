@@ -18,7 +18,7 @@ class TodoTask {
     }
 
     public static string GetHeader() {
-         return $"{"ID".PadRight(5)} {"Title".PadRight(20)} {"Project".PadRight(20)} {"Date".PadRight(20)} Status"; 
+         return $"    {"Title".PadRight(20)} {"Project".PadRight(20)} {"Date".PadRight(20)} {"ID".PadRight(5)}"; 
     }
 
     public static string GetDivider() {
@@ -26,7 +26,8 @@ class TodoTask {
     }
 
     public override string ToString () {
-        return $"{Id.ToString().PadRight(5)} {Title.PadRight(20)} {Project.PadRight(20)} {DueDate.ToString("yyyy-MM-dd").PadRight(20)} {Status}";
+        string stat = Status == TaskStatus.Done ?  "[✓]" : "[ ]";
+        return $"{stat} {Title.PadRight(20)} {Project.PadRight(20)} {DueDate.ToString("yyyy-MM-dd").PadRight(20)} {Id.ToString().PadRight(5)}";
     }
 }
 
